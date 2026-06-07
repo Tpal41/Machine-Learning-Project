@@ -4,11 +4,10 @@
 [![Flask](https://img.shields.io/badge/Flask-2.3.3-green)](https://flask.palletsprojects.com/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3.0-orange)](https://scikit-learn.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7)](https://render.com)
 
 > **Advanced Machine Learning system** that predicts college placement probability and expected package using Random Forest and Gradient Boosting algorithms.
 
-[🚀 Live Demo](#) | [📖 Documentation](#features) | [🎥 Video Demo](#)
+**🔗 Repository:** [GitHub](https://github.com/Tpal41/Machine-Learning-Project)
 
 ---
 
@@ -102,8 +101,8 @@ Git
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/college-placement-predictor.git
-cd college-placement-predictor
+git clone https://github.com/Tpal41/Machine-Learning-Project.git
+cd Machine-Learning-Project
 ```
 
 2. **Install dependencies**
@@ -261,19 +260,6 @@ SECRET_KEY=your_secret_key_here
 
 ---
 
-## 🎨 Screenshots
-
-### Home Page
-![Home Page](screenshots/home.png)
-
-### Dark Mode
-![Dark Mode](screenshots/dark-mode.png)
-
-### Results Dashboard
-![Results](screenshots/results.png)
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! Here's how you can help:
@@ -318,11 +304,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
-- LinkedIn: [Your Profile](https://linkedin.com/in/your-profile)
-- Portfolio: [your-website.com](https://your-website.com)
-- Email: your.email@example.com
+**Tpal41**
+- 🔗 GitHub: [@Tpal41](https://github.com/Tpal41)
+- 📦 Repository: [Machine-Learning-Project](https://github.com/Tpal41/Machine-Learning-Project)
+- 💬 Issues: [Report bugs or request features](https://github.com/Tpal41/Machine-Learning-Project/issues)
 
 ---
 
@@ -341,18 +326,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you found this project helpful, please ⭐ star the repository!
 
 For questions or issues:
-- 📧 Email: your.email@example.com
-- 💬 Open an [Issue](https://github.com/YOUR_USERNAME/college-placement-predictor/issues)
-- 📱 LinkedIn: [Connect with me](https://linkedin.com/in/your-profile)
+- 💬 Open an [Issue](https://github.com/Tpal41/Machine-Learning-Project/issues)
+- 📦 Visit: [Repository](https://github.com/Tpal41/Machine-Learning-Project)
+- 🔗 Fork and contribute!
 
 ---
 
-## 🔗 Links
+## 🔗 Important Links
 
-- **Live Demo:** [Deployed on Render](#)
-- **Blog Post:** [Read detailed article](#)
-- **Video Tutorial:** [Watch on YouTube](#)
-- **Documentation:** [Full Docs](#)
+- **📦 GitHub Repository:** [https://github.com/Tpal41/Machine-Learning-Project](https://github.com/Tpal41/Machine-Learning-Project)
+- **👤 Developer Profile:** [https://github.com/Tpal41](https://github.com/Tpal41)
+- **📧 Contact:** Open an issue on GitHub for queries
+- **🚀 Deployment:** Deploy on Render.com (see instructions below)
+
+> **Note:** Add your deployment link here after deploying on Render.com
 
 ---
 

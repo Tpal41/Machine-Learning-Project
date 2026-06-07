@@ -142,7 +142,7 @@ for i in range(num_students):
         preferred_role = 'SDE'
     elif web_dev_score > 70 and (frontend_skills > 65 or backend_skills > 65):
         preferred_role = 'Full_Stack_Developer'
-    elif data_science_interest := (python_proficiency > 70 and np.random.random() > 0.7):
+    elif python_proficiency > 70 and np.random.random() > 0.7:
         preferred_role = 'Data_Analyst'
     else:
         preferred_role = 'Software_Engineer'
