@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - College Placement Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+
+    <div class="auth-container">
+        <!-- Floating Particles -->
+        <div class="particle" style="width: 80px; height: 80px; top: 10%; left: 10%;"></div>
+        <div class="particle" style="width: 120px; height: 120px; top: 60%; right: 15%;"></div>
+        <div class="particle" style="width: 60px; height: 60px; bottom: 20%; left: 80%;"></div>
+        
+        <div class="auth-box">
+            <div class="auth-header">
+                <i class="fas fa-graduation-cap" style="font-size: 3em; color: #667eea;"></i>
+                <h1>Welcome Back!</h1>
+                <p style="color: #64748b;">Login to access your placement dashboard</p>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form action="/login" method="POST">
+                <div class="input-group">
+                    <label><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" name="email" class="input-field" placeholder="Enter your email" required>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" name="password" class="input-field" placeholder="Enter your password" required>
+                </div>
+
+                <div style="text-align: right; margin-bottom: 20px;">
+                    <a href="/forgot-password" style="color: #667eea; text-decoration: none; font-size: 0.9em;">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-premium" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="/signup">Sign up here</a></p>
+            </div>
+
+            <div style="text-align: center; margin-top: 25px; padding-top: 25px; border-top: 1px solid #e2e8f0;">
+                <p style="color: #94a3b8; font-size: 0.9em;">Or continue as</p>
+                <a href="/quiz" style="color: #667eea; text-decoration: none; font-weight: 600;">
+                    <i class="fas fa-user"></i> Guest (Skip Login)
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('themeIcon');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        // Load saved preference
+        window.addEventListener('load', function() {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+        });
+
+        // Add floating animation to particles
+        document.querySelectorAll('.particle').forEach((particle, index) => {
+            particle.style.animationDelay = `${index * 3}s`;
+        });
+    </script>
+</body>
+</html>

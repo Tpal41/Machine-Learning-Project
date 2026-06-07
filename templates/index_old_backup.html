@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Education Platform | AI-Powered Career Guidance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <i class="fas fa-brain header-icon"></i>
+                <h1>Smart Education Platform</h1>
+                <p class="subtitle">AI-Powered Academic Performance & Career Guidance System</p>
+            </div>
+        </header>
+
+        <!-- Information Banner -->
+        <div class="info-banner">
+            <i class="fas fa-rocket"></i>
+            <p>Complete educational intelligence platform - From <strong>School</strong> to <strong>Placement</strong>. Get personalized roadmaps, skill analysis, and career predictions!</p>
+        </div>
+
+        <!-- Category Selection -->
+        <div class="category-selector">
+            <h2><i class="fas fa-users"></i> Select Your Category</h2>
+            <div class="category-buttons">
+                <button class="category-btn active" onclick="showCategory('school')" id="btn-school">
+                    <i class="fas fa-school"></i>
+                    <span>School Student</span>
+                    <small>10th / 12th</small>
+                </button>
+                <button class="category-btn" onclick="showCategory('college')" id="btn-college">
+                    <i class="fas fa-university"></i>
+                    <span>College Student</span>
+                    <small>Engineering / Degree</small>
+                </button>
+                <button class="category-btn" onclick="showCategory('placement')" id="btn-placement">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Job Seeker</span>
+                    <small>Placement Ready</small>
+                </button>
+            </div>
+        </div>
+
+        <!-- FORM 1: SCHOOL STUDENT -->
+        <div class="form-card category-form" id="form-school">
+            <div class="card-header">
+                <i class="fas fa-school"></i>
+                <h2>School Student Assessment</h2>
+            </div>
+
+            <form action="/predict" method="POST" class="prediction-form">
+                <input type="hidden" name="student_type" value="school">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar"></i> Class</label>
+                        <select name="class_level" class="form-input" required>
+                            <option value="Class_10th">Class 10th</option>
+                            <option value="Class_12th">Class 12th</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-book-reader"></i> Study Hours per Day</label>
+                        <input type="number" name="study_hours" step="0.5" min="0" max="24" required placeholder="e.g., 6.5" class="form-input">
+                        <small class="input-hint">Hours spent studying daily (0-24)</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-check"></i> Attendance %</label>
+                        <input type="number" name="attendance" step="0.1" min="0" max="100" required placeholder="e.g., 85" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-chalkboard-teacher"></i> Coaching Hours</label>
+                        <input type="number" name="coaching_hours" step="0.5" min="0" max="10" placeholder="0" class="form-input">
+                    </div>
+                </div>
+
+                <h3 class="section-title"><i class="fas fa-clipboard-list"></i> Subject-wise Marks</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-calculator"></i> Mathematics</label>
+                        <input type="number" name="math_marks" step="0.1" min="0" max="100" required placeholder="e.g., 85" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-flask"></i> Science</label>
+                        <input type="number" name="science_marks" step="0.1" min="0" max="100" required placeholder="e.g., 80" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-book"></i> English</label>
+                        <input type="number" name="english_marks" step="0.1" min="0" max="100" required placeholder="e.g., 75" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-comments"></i> Communication Skill (1-10)</label>
+                        <input type="number" name="communication" step="0.1" min="1" max="10" required placeholder="e.g., 7" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-brain"></i> Aptitude Test Score</label>
+                        <input type="number" name="aptitude" step="0.1" min="0" max="100" required placeholder="e.g., 70" class="form-input">
+                    </div>
+                </div>
+
+                <button type="submit" class="predict-btn">
+                    <i class="fas fa-chart-line"></i>
+                    Predict Board Exam Performance
+                </button>
+            </form>
+        </div>
+
+        <!-- How it Works Section -->
+        <div class="how-it-works">
+            <h3><i class="fas fa-cogs"></i> How It Works</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Enter Data</h4>
+                        <p>Provide study hours, attendance, and previous marks</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>ML Processing</h4>
+                        <p>Linear Regression model analyzes the data</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Get Prediction</h4>
+                        <p>Receive predicted final marks with performance insights</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features">
+            <h3><i class="fas fa-star"></i> Key Features</h3>
+            <div class="feature-grid">
+                <div class="feature">
+                    <i class="fas fa-robot"></i>
+                    <h4>Machine Learning</h4>
+                    <p>Powered by Linear Regression algorithm</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-bar"></i>
+                    <h4>High Accuracy</h4>
+                    <p>92%+ prediction accuracy (R² Score)</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Instant Results</h4>
+                    <p>Get predictions in milliseconds</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Responsive Design</h4>
+                    <p>Works on all devices</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>
+                <i class="fas fa-code"></i> 
+                Developed as College Mini Project | Machine Learning Assignment
+            </p>
+            <p>© 2024 Student Performance Predictor | All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript for Form Validation and UX -->
+    <script>
+        // Real-time validation feedback
+        const form = document.querySelector('.prediction-form');
+        const inputs = document.querySelectorAll('.form-input');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.validity.valid) {
+                    this.style.borderColor = '#27ae60';
+                } else {
+                    this.style.borderColor = '#e74c3c';
+                }
+            });
+        });
+
+        // Form submission handler
+        form.addEventListener('submit', function(e) {
+            const studyHours = parseFloat(document.getElementById('study_hours').value);
+            const attendance = parseFloat(document.getElementById('attendance').value);
+            const previousMarks = parseFloat(document.getElementById('previous_marks').value);
+
+            // Validation
+            if (studyHours < 0 || studyHours > 24) {
+                alert('Study hours must be between 0 and 24!');
+                e.preventDefault();
+                return;
+            }
+
+            if (attendance < 0 || attendance > 100) {
+                alert('Attendance must be between 0 and 100!');
+                e.preventDefault();
+                return;
+            }
+
+            if (previousMarks < 0 || previousMarks > 100) {
+                alert('Previous marks must be between 0 and 100!');
+                e.preventDefault();
+                return;
+            }
+
+            // Show loading state
+            const button = document.querySelector('.predict-btn');
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Predicting...';
+            button.disabled = true;
+        });
+
+        // Add animation on page load
+        window.addEventListener('load', function() {
+            document.querySelector('.container').style.opacity = '1';
+        });
+    </script>
+</body>
+</html>

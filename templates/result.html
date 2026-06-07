@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Placement Report | College Placement Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+
+    <div class="container result-page">
+        <header class="header">
+            <div class="header-content">
+                <i class="fas fa-chart-line header-icon"></i>
+                <h1>Your Placement Analysis Report</h1>
+                <p class="subtitle">AI-Powered Career Insights & Roadmap</p>
+            </div>
+        </header>
+
+        {% if error %}
+        <div class="error-card">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Error</h2>
+            <p>{{ error }}</p>
+            <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Go Back</a>
+        </div>
+        {% else %}
+
+        <!-- Main Prediction Card -->
+        <div class="prediction-card">
+            <h2><i class="fas fa-bullseye"></i> Your Placement Predictions</h2>
+            <div class="prediction-grid">
+                <div class="prediction-box {{ category_class }}">
+                    <i class="fas fa-percentage"></i>
+                    <h3>Placement Probability</h3>
+                    <div class="big-number">{{ placement_probability }}%</div>
+                    <span class="category-badge">{{ category }}</span>
+                </div>
+                <div class="prediction-box package">
+                    <i class="fas fa-rupee-sign"></i>
+                    <h3>Expected Package</h3>
+                    <div class="big-number">{{ expected_package }} LPA</div>
+                    <span class="category-badge">Annual</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill {{ category_class }}" style="width: {{ placement_probability }}%">
+                    <span>{{ placement_probability }}%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Analysis -->
+        <div class="analysis-card">
+            <h2><i class="fas fa-chart-bar"></i> Skills Analysis</h2>
+            <div class="skills-grid">
+                {% for skill in skills_analysis %}
+                <div class="skill-item {{ skill.class }}">
+                    <i class="fas fa-{{ skill.icon }}"></i>
+                    <strong>{{ skill.skill }}</strong>
+                    <span>{{ skill.level }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Strengths & Weaknesses -->
+        <div class="sw-container">
+            <div class="strength-card">
+                <h3><i class="fas fa-thumbs-up"></i> Your Strengths</h3>
+                <ul>
+                    {% for strength in strengths %}
+                    <li><i class="fas fa-check-circle"></i> {{ strength }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="weakness-card">
+                <h3><i class="fas fa-exclamation-circle"></i> Areas to Improve</h3>
+                <ul>
+                    {% for weakness in weaknesses %}
+                    <li><i class="fas fa-arrow-up"></i> {{ weakness }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Personalized Roadmap -->
+        <div class="roadmap-card">
+            <h2><i class="fas fa-map-marked-alt"></i> Your Personalized Roadmap</h2>
+            {% if roadmap %}
+                {% for item in roadmap %}
+                <div class="roadmap-item priority-{{ item.priority|lower }}">
+                    <div class="roadmap-header">
+                        <span class="priority-badge">{{ item.priority }} PRIORITY</span>
+                        <h3>{{ item.area }}</h3>
+                    </div>
+                    <div class="roadmap-body">
+                        <div class="progress-indicator">
+                            <span class="current">Current: {{ item.current }}</span>
+                            <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+                            <span class="target">Target: {{ item.target }}</span>
+                        </div>
+                        <p class="action"><strong>Action Plan:</strong> {{ item.action }}</p>
+                        <div class="roadmap-footer">
+                            <span><i class="fas fa-clock"></i> {{ item.timeline }}</span>
+                            <span><i class="fas fa-book"></i> {{ item.resources }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="success-message"><i class="fas fa-trophy"></i> Excellent! Your profile is strong. Keep maintaining your current momentum!</p>
+            {% endif %}
+        </div>
+
+        <!-- Time Allocation -->
+        <div class="time-card">
+            <h2><i class="fas fa-clock"></i> Daily Time Allocation</h2>
+            <p class="subtitle">How to distribute your 8-hour daily preparation</p>
+            <div class="time-grid">
+                {% for activity, hours in time_allocation.items() %}
+                <div class="time-item">
+                    <div class="time-circle">{{ hours }}</div>
+                    <span>{{ activity }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Company Recommendations -->
+        <div class="companies-card">
+            <h2><i class="fas fa-building"></i> Recommended Companies</h2>
+            <p class="subtitle">Based on your profile, these companies are within your reach</p>
+            <div class="companies-grid">
+                {% for company in companies %}
+                <div class="company-item">
+                    <h4>{{ company.name }}</h4>
+                    <span class="package-badge">{{ company.package }}</span>
+                    <span class="level-badge level-{{ company.level.replace(' ', '-')|lower }}">{{ company.level }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="/" class="back-btn primary"><i class="fas fa-redo"></i> Analyze Again</a>
+        </div>
+
+        {% endif %}
+
+        <footer class="footer">
+            <p><i class="fas fa-brain"></i> Powered by Advanced Machine Learning</p>
+            <p>© 2024 College Placement Predictor</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('themeIcon');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        // Load saved preference
+        window.addEventListener('load', function() {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+            
+            document.querySelector('.container').style.opacity = '1';
+            // Animate progress bar
+            setTimeout(() => {
+                document.querySelector('.progress-fill').style.transition = 'width 1.5s ease';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

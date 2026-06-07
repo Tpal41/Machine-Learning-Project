@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Assessment Quiz - College Placement Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
+    <div class="quiz-container">
+        <div class="quiz-header" style="text-align: center; margin-bottom: 30px;">
+            <h1 style="font-size: 2em; color: #1e293b;">
+                <i class="fas fa-brain"></i> Quick Assessment Quiz
+            </h1>
+            <p style="color: #64748b;">Answer these questions to enhance your prediction accuracy</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="quiz-progress">
+            <div class="quiz-progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        <div style="text-align: center; margin-bottom: 20px; color: #64748b;">
+            Question <span id="currentQ">1</span> of <span id="totalQ">10</span>
+        </div>
+
+        <!-- Quiz Content -->
+        <div id="quizContent">
+            <!-- Questions will be loaded here by JavaScript -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+            <button id="prevBtn" class="btn-premium" style="background: #94a3b8;" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button id="nextBtn" class="btn-premium">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- Skip Quiz Option -->
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/" style="color: #667eea; text-decoration: none;">
+                <i class="fas fa-forward"></i> Skip Quiz & Go to Form
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const quizQuestions = [
+            {
+                question: "What is the time complexity of Binary Search?",
+                options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+                correct: 1,
+                category: "DSA"
+            },
+            {
+                question: "Which data structure uses LIFO (Last In First Out)?",
+                options: ["Queue", "Stack", "Array", "Linked List"],
+                correct: 1,
+                category: "DSA"
+            },
+            {
+                question: "What does OOP stand for?",
+                options: ["Object Oriented Programming", "Object Order Protocol", "Ordered Object Processing", "None"],
+                correct: 0,
+                category: "Programming"
+            },
+            {
+                question: "Which sorting algorithm has best average case time complexity?",
+                options: ["Bubble Sort", "Merge Sort", "Insertion Sort", "Selection Sort"],
+                correct: 1,
+                category: "DSA"
+            },
+            {
+                question: "What is the output of: print(type([]))",
+                options: ["<class 'array'>", "<class 'list'>", "<class 'tuple'>", "<class 'dict'>"],
+                correct: 1,
+                category: "Python"
+            },
+            {
+                question: "Which protocol is used for secure web browsing?",
+                options: ["HTTP", "FTP", "HTTPS", "SMTP"],
+                correct: 2,
+                category: "Networking"
+            },
+            {
+                question: "What is a primary key in database?",
+                options: ["First column", "Unique identifier", "Foreign key", "Index"],
+                correct: 1,
+                category: "Database"
+            },
+            {
+                question: "Which company developed React.js?",
+                options: ["Google", "Facebook", "Twitter", "Microsoft"],
+                correct: 1,
+                category: "Web Development"
+            },
+            {
+                question: "What does API stand for?",
+                options: ["Application Programming Interface", "Advanced Program Integration", "Automated Process Integration", "None"],
+                correct: 0,
+                category: "General"
+            },
+            {
+                question: "Which of these is not a programming paradigm?",
+                options: ["Functional", "Object-Oriented", "Procedural", "Sequential"],
+                correct: 3,
+                category: "Programming"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = new Array(quizQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const q = quizQuestions[currentQuestion];
+            const content = document.getElementById('quizContent');
+            
+            content.innerHTML = `
+                <div class="quiz-question">
+                    <span style="color: #667eea;">${q.category}</span><br>
+                    ${currentQuestion + 1}. ${q.question}
+                </div>
+                <div class="quiz-options">
+                    ${q.options.map((option, index) => `
+                        <div class="quiz-option" data-index="${index}" 
+                             onclick="selectOption(${index})"
+                             ${answers[currentQuestion] === index ? 'style="border-color: #667eea; background: rgba(99, 102, 241, 0.1);"' : ''}>
+                            <strong>${String.fromCharCode(65 + index)}.</strong> ${option}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Update progress
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            document.getElementById('progressBar').style.width = 
+                ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
+
+            // Update buttons
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').textContent = 
+                currentQuestion === quizQuestions.length - 1 ? 'Submit' : 'Next →';
+        }
+
+        function selectOption(index) {
+            answers[currentQuestion] = index;
+            
+            // Visual feedback
+            document.querySelectorAll('.quiz-option').forEach((opt, i) => {
+                if (i === index) {
+                    opt.style.borderColor = '#667eea';
+                    opt.style.background = 'rgba(99, 102, 241, 0.1)';
+                } else {
+                    opt.style.borderColor = '#e2e8f0';
+                    opt.style.background = 'white';
+                }
+            });
+        }
+
+        function nextQuestion() {
+            if (answers[currentQuestion] === null) {
+                alert('Please select an answer!');
+                return;
+            }
+
+            if (currentQuestion < quizQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                submitQuiz();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function submitQuiz() {
+            // Calculate score
+            score = 0;
+            answers.forEach((answer, index) => {
+                if (answer === quizQuestions[index].correct) {
+                    score++;
+                }
+            });
+
+            const percentage = (score / quizQuestions.length * 100).toFixed(0);
+            
+            // Store quiz score in session
+            sessionStorage.setItem('quizScore', percentage);
+            
+            // Show result
+            document.getElementById('quizContent').innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <i class="fas fa-trophy" style="font-size: 80px; color: #f59e0b;"></i>
+                    <h2 style="margin: 20px 0; font-size: 2em;">Quiz Completed!</h2>
+                    <div style="font-size: 3em; font-weight: 700; color: #667eea;">
+                        ${score}/${quizQuestions.length}
+                    </div>
+                    <p style="font-size: 1.3em; color: #64748b; margin: 15px 0;">
+                        Score: ${percentage}%
+                    </p>
+                    <p style="color: #64748b; margin: 25px 0;">
+                        Your quiz score will be used to enhance prediction accuracy!
+                    </p>
+                    <a href="/" class="btn-premium" style="display: inline-block; text-decoration: none; margin-top: 20px;">
+                        Continue to Prediction Form →
+                    </a>
+                </div>
+            `;
+
+            document.querySelector('.quiz-progress').style.display = 'none';
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        // Event listeners
+        document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+        document.getElementById('prevBtn').addEventListener('click', prevQuestion);
+
+        // Initialize
+        loadQuestion();
+    </script>
+</body>
+</html>

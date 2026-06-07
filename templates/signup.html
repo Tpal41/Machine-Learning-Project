@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - College Placement Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+
+    <div class="auth-container">
+        <div class="auth-box" style="max-width: 550px;">
+            <div class="auth-header">
+                <i class="fas fa-user-plus" style="font-size: 3em; color: #667eea;"></i>
+                <h1>Create Account</h1>
+                <p style="color: #64748b;">Start your placement preparation journey!</p>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ error }}
+            </div>
+            {% endif %}
+
+            {% if success %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                {{ success }}
+            </div>
+            {% endif %}
+
+            <form action="/signup" method="POST">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-group">
+                        <label><i class="fas fa-user"></i> First Name</label>
+                        <input type="text" name="first_name" class="input-field" placeholder="John" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label><i class="fas fa-user"></i> Last Name</label>
+                        <input type="text" name="last_name" class="input-field" placeholder="Doe" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" name="email" class="input-field" placeholder="john.doe@example.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-graduation-cap"></i> College/University</label>
+                    <input type="text" name="college" class="input-field" placeholder="Your College Name" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-group">
+                        <label><i class="fas fa-code-branch"></i> Branch</label>
+                        <select name="branch" class="input-field" required>
+                            <option value="">Select Branch</option>
+                            <option value="CSE">Computer Science</option>
+                            <option value="IT">Information Technology</option>
+                            <option value="ECE">Electronics & Communication</option>
+                            <option value="EEE">Electrical & Electronics</option>
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label><i class="fas fa-calendar"></i> Year</label>
+                        <select name="year" class="input-field" required>
+                            <option value="">Select Year</option>
+                            <option value="2nd_Year">2nd Year</option>
+                            <option value="3rd_Year">3rd Year</option>
+                            <option value="4th_Year">4th Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" name="password" class="input-field" placeholder="Create a strong password" required minlength="6">
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> Confirm Password</label>
+                    <input type="password" name="confirm_password" class="input-field" placeholder="Confirm your password" required>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" required style="width: 18px; height: 18px;">
+                        <span style="color: #64748b; font-size: 0.9em;">
+                            I agree to the <a href="#" style="color: #667eea;">Terms & Conditions</a>
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-premium" style="width: 100%;">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="/login">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('themeIcon');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        // Load saved preference
+        window.addEventListener('load', function() {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+        });
+
+        // Password confirmation validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const password = document.querySelector('input[name="password"]').value;
+            const confirm = document.querySelector('input[name="confirm_password"]').value;
+            
+            if (password !== confirm) {
+                e.preventDefault();
+                alert('Passwords do not match!');
+            }
+        });
+    </script>
+</body>
+</html>

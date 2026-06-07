@@ -1,0 +1,192 @@
+        <!-- FORM 2: COLLEGE STUDENT -->
+        <div class="form-card category-form" id="form-college" style="display:none;">
+            <div class="card-header">
+                <i class="fas fa-university"></i>
+                <h2>College Student Assessment</h2>
+            </div>
+
+            <form action="/predict" method="POST" class="prediction-form">
+                <input type="hidden" name="student_type" value="college">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar"></i> Year</label>
+                        <select name="class_level" class="form-input" required>
+                            <option value="Engineering_2nd_Year">Engineering 2nd Year</option>
+                            <option value="Engineering_3rd_Year">Engineering 3rd Year</option>
+                            <option value="Engineering_4th_Year">Engineering 4th Year</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-graduation-cap"></i> Current CGPA (out of 10)</label>
+                        <input type="number" name="cgpa" step="0.01" min="0" max="10" required placeholder="e.g., 8.5" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-book-reader"></i> Study Hours per Day</label>
+                        <input type="number" name="study_hours" step="0.5" min="0" max="24" required placeholder="e.g., 8" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-check"></i> Attendance %</label>
+                        <input type="number" name="attendance" step="0.1" min="0" max="100" required placeholder="e.g., 85" class="form-input">
+                    </div>
+                </div>
+
+                <h3 class="section-title"><i class="fas fa-code"></i> Technical Skills (0-100)</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-project-diagram"></i> DSA Skills</label>
+                        <input type="number" name="dsa_score" step="0.1" min="0" max="100" required placeholder="e.g., 75" class="form-input">
+                        <small class="input-hint">Data Structures & Algorithms</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-laptop-code"></i> Coding Skills</label>
+                        <input type="number" name="coding_score" step="0.1" min="0" max="100" required placeholder="e.g., 80" class="form-input">
+                        <small class="input-hint">Overall coding proficiency</small>
+                    </div>
+                </div>
+
+                <h3 class="section-title"><i class="fas fa-briefcase"></i> Experience & Projects</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-folder"></i> Number of Projects</label>
+                        <input type="number" name="projects_count" min="0" max="20" required placeholder="e.g., 5" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-building"></i> Number of Internships</label>
+                        <input type="number" name="internships_count" min="0" max="10" required placeholder="e.g., 2" class="form-input">
+                    </div>
+                </div>
+
+                <h3 class="section-title"><i class="fas fa-user-graduate"></i> Soft Skills</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-comments"></i> Communication Skill (1-10)</label>
+                        <input type="number" name="communication" step="0.1" min="1" max="10" required placeholder="e.g., 7.5" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-brain"></i> Aptitude Score (0-100)</label>
+                        <input type="number" name="aptitude" step="0.1" min="0" max="100" required placeholder="e.g., 75" class="form-input">
+                    </div>
+                </div>
+
+                <button type="submit" class="predict-btn">
+                    <i class="fas fa-chart-line"></i>
+                    Predict Placement Probability & Package
+                </button>
+            </form>
+        </div>
+
+        <!-- FORM 3: JOB SEEKER / PLACEMENT PREP -->
+        <div class="form-card category-form" id="form-placement" style="display:none;">
+            <div class="card-header">
+                <i class="fas fa-briefcase"></i>
+                <h2>Placement Preparation Assessment</h2>
+            </div>
+
+            <form action="/predict" method="POST" class="prediction-form">
+                <input type="hidden" name="student_type" value="placement">
+                
+                <h3 class="section-title"><i class="fas fa-user"></i> Academic Background</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-graduation-cap"></i> Final CGPA (out of 10)</label>
+                        <input type="number" name="cgpa" step="0.01" min="0" max="10" required placeholder="e.g., 8.2" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-book-reader"></i> Preparation Hours per Day</label>
+                        <input type="number" name="study_hours" step="0.5" min="0" max="24" required placeholder="e.g., 10" class="form-input">
+                    </div>
+                </div>
+
+                <h3 class="section-title"><i class="fas fa-code"></i> Technical Skills Assessment</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-project-diagram"></i> DSA Proficiency (0-100)</label>
+                        <input type="number" name="dsa_score" step="0.1" min="0" max="100" required placeholder="e.g., 85" class="form-input">
+                        <small class="input-hint">LeetCode/GFG problems solved</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-laptop-code"></i> Coding Skills (0-100)</label>
+                        <input type="number" name="coding_score" step="0.1" min="0" max="100" required placeholder="e.g., 90" class="form-input">
+                        <small class="input-hint">Overall coding expertise</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-language"></i> Programming Languages Known</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="languages" value="java"> Java</label>
+                            <label><input type="checkbox" name="languages" value="python"> Python</label>
+                            <label><input type="checkbox" name="languages" value="cpp"> C++</label>
+                            <label><input type="checkbox" name="languages" value="javascript"> JavaScript</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title"><i class="fas fa-briefcase"></i> Experience Portfolio</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-folder-open"></i> Number of Projects</label>
+                        <input type="number" name="projects_count" min="0" max="30" required placeholder="e.g., 7" class="form-input">
+                        <small class="input-hint">GitHub projects, personal projects</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-building"></i> Internships Completed</label>
+                        <input type="number" name="internships_count" min="0" max="10" required placeholder="e.g., 3" class="form-input">
+                    </div>
+                </div>
+
+                <h3 class="section-title"><i class="fas fa-users"></i> Soft Skills & Aptitude</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-comments"></i> Communication Skills (1-10)</label>
+                        <input type="number" name="communication" step="0.1" min="1" max="10" required placeholder="e.g., 8.5" class="form-input">
+                        <small class="input-hint">Public speaking, presentations</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-brain"></i> Aptitude Score (0-100)</label>
+                        <input type="number" name="aptitude" step="0.1" min="0" max="100" required placeholder="e.g., 85" class="form-input">
+                        <small class="input-hint">Logical reasoning, quantitative</small>
+                    </div>
+                </div>
+
+                <h3 class="section-title"><i class="fas fa-trophy"></i> Competitive Programming</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-medal"></i> LeetCode Problems Solved</label>
+                        <input type="number" name="leetcode_count" min="0" max="3000" placeholder="e.g., 250" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-code-branch"></i> GitHub Contributions</label>
+                        <input type="number" name="github_contributions" min="0" max="5000" placeholder="e.g., 500" class="form-input">
+                    </div>
+                </div>
+
+                <button type="submit" class="predict-btn">
+                    <i class="fas fa-rocket"></i>
+                    Get Placement Prediction & Roadmap
+                </button>
+            </form>
+        </div>
