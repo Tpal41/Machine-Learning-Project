@@ -2,10 +2,9 @@ services:
   - type: web
     name: college-placement-predictor
     env: python
-    buildCommand: "pip install --upgrade pip setuptools wheel && pip install -r requirements.txt && python generate_dataset.py && python train_college_model.py"
-    startCommand: "gunicorn app_enhanced:app --bind 0.0.0.0:$PORT"
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn app_enhanced:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11
       - key: MPLBACKEND
         value: Agg
